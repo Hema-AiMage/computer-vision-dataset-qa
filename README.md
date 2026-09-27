@@ -1,16 +1,40 @@
 # Computer Vision Dataset QA
 
-Practical quality-assurance guidelines for image, video, object tracking, and segmentation datasets used in computer vision.
+Practical quality-assurance guidelines, review workflows, and operational checklists for **image annotation, video object tracking, segmentation, and production computer vision datasets**.
 
-This repository documents QA principles and review workflows developed from hands-on experience working with production computer vision datasets.
+This repository documents QA practices developed from hands-on work with real-world computer vision data.
 
-The focus is not simply whether an annotation exists, but whether the resulting ground truth is **accurate, consistent, complete, and usable for model development**.
+The goal is not simply to determine whether an annotation exists, but whether the resulting ground truth is **accurate, consistent, complete, and usable for model development**.
+
+## QA Guides
+
+### [Bounding Box Annotation QA](docs/bounding-box-qa.md)
+Review methodology for object coverage, box placement, class accuracy, duplicates, occlusion, truncation, difficult objects, and cross-batch consistency.
+
+### [Video Object Tracking QA](docs/video-tracking-qa.md)
+Frame-to-frame QA for Track ID consistency, object exit/re-entry, occlusion, interpolation, identity switches, missing frames, and difficult video conditions.
+
+### [Segmentation Annotation QA](docs/segmentation-qa.md)
+Review methodology for mask and polygon accuracy, boundary consistency, instance separation, occlusion, overlapping objects, and difficult edges.
+
+### [Dataset Acceptance Checklist](docs/dataset-acceptance-checklist.md)
+A final delivery gate covering dataset scope, annotation completeness, guideline compliance, class coverage, difficult samples, export integrity, data splits, and re-review.
+
+## Operational Review Checklists
+
+These shorter checklists are designed to be used directly during annotation QA.
+
+### [Image Annotation Review Checklist](checklists/image-annotation-review.md)
+A practical reviewer checklist for bounding boxes, segmentation, object coverage, class accuracy, false positives, and cross-sample consistency.
+
+### [Video Tracking Review Checklist](checklists/video-tracking-review.md)
+A sequence-level reviewer checklist for Track IDs, frame-to-frame accuracy, occlusion, interpolation, missing frames, identity switches, and temporal consistency.
 
 ## Why Dataset QA Matters
 
 Annotation errors are not limited to incorrect class labels.
 
-In real-world computer vision datasets, quality problems can include:
+Real-world computer vision datasets can contain:
 
 - Missing objects
 - Inconsistent bounding boxes
@@ -25,41 +49,41 @@ In real-world computer vision datasets, quality problems can include:
 
 These errors can propagate directly into training and evaluation data.
 
-## QA Areas Covered
+## QA Approach
 
-### Image Annotation
-Bounding-box placement, class consistency, missed objects, duplicates, truncation, occlusion, and difficult edge cases.
+A useful QA workflow evaluates annotations at multiple levels:
 
-### Video Object Tracking
-Track-ID consistency, frame-by-frame box adjustment, occlusion handling, object re-entry, interpolation review, and identity switches.
+**Annotation → Object/Track → Image/Sequence → Batch → Dataset → Export**
 
-### Segmentation
-Mask accuracy, boundary consistency, overlapping objects, small regions, and class-level consistency.
+Review should consider both individual annotation accuracy and systematic inconsistencies across the dataset.
 
-### Dataset-Level QA
-Cross-batch consistency, annotation guideline compliance, class coverage, sample validation, export checks, and final acceptance review.
+Particular attention should be given to difficult cases such as:
 
-## Repository Structure
+- Occlusion
+- Partial visibility
+- Low contrast
+- Thermal imagery
+- Crowded scenes
+- Fast motion
+- Camera vibration
+- Small or distant objects
+- Ambiguous boundaries
 
-- `docs/bounding-box-qa.md`
-- `docs/video-tracking-qa.md`
-- `docs/segmentation-qa.md`
-- `docs/dataset-acceptance-checklist.md`
-- `checklists/image-annotation-review.md`
-- `checklists/video-tracking-review.md`
+## Tools & Data Formats
 
-## Approach
+Experience includes workflows involving:
 
-A reliable QA workflow should evaluate annotations at three levels:
+**Annotation platforms:** CVAT, Label Studio, LabelImg, Roboflow, Labelbox, SuperAnnotate
 
-**Object level → Frame/Image level → Dataset level**
+**Data formats:** COCO JSON, CVAT XML, YOLO TXT, and project-specific structured annotation exports
 
-Passing one level does not guarantee that the dataset is production-ready.
-
-For video datasets in particular, temporal consistency matters: an annotation may look correct in an individual frame while still being wrong when evaluated as part of an object track.
+**Tasks:** Object Detection · Video Tracking · Semantic Segmentation · Instance Segmentation · Classification · Dataset QA
 
 ## About
 
 Maintained by **Hema Sekhar**, Computer Vision Dataset Engineer and Founder of **Aimage Annotators**.
 
 Aimage Annotators works with image, video, tracking, segmentation, and dataset QA workflows for computer vision and robotics applications.
+
+**Website:** https://www.aimageannotators.com  
+**LinkedIn:** https://www.linkedin.com/in/hemasekhar-ai-annotation-expert
